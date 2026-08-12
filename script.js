@@ -2,61 +2,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // UI Elements
   const hoursEl = document.getElementById('hours');
   const minutesEl = document.getElementById('minutes');
-  const floorNumberEl = document.getElementById('floor-number');
+  const secondsLargeEl = document.getElementById('seconds-large');
   const dateFullEl = document.getElementById('date-full');
   const dayJapaneseEl = document.getElementById('day-japanese');
+  const weatherIconEl = document.getElementById('weather-icon');
+  const weatherDescEl = document.getElementById('weather-desc');
+  const weatherTempEl = document.getElementById('weather-temp');
   const newsTickerEl = document.getElementById('news-ticker');
   const fullscreenBtn = document.getElementById('fullscreen-btn');
 
   const DAYS_JP = ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'];
-  const weatherInfoEl = document.getElementById('weather-info');
   let previousSecond = -1;
-
-  // ----------------------------------------------------
-  // Real-time Weather Fetching (Open-Meteo API)
-  // ----------------------------------------------------
-  async function fetchRealWeather() {
-    try {
-      const weatherUrl = 'https://api.open-meteo.com/v1/forecast?latitude=35.6762&longitude=139.6503&current_weather=true';
-      const response = await fetch(weatherUrl);
-      if (!response.ok) throw new Error('Weather API request failed');
-
-      const data = await response.json();
-      if (data && data.current_weather) {
-        const temp = Math.round(data.current_weather.temperature);
-        const code = data.current_weather.weathercode;
-        
-        let weatherText = '晴れ';
-        let weatherIcon = '☀️';
-
-        if (code === 0) {
-          weatherText = '晴れ'; weatherIcon = '☀️';
-        } else if (code >= 1 && code <= 3) {
-          weatherText = '曇り'; weatherIcon = '🌤️';
-        } else if (code >= 45 && code <= 48) {
-          weatherText = '霧'; weatherIcon = '🌫️';
-        } else if (code >= 51 && code <= 82) {
-          weatherText = '雨'; weatherIcon = '🌧️';
-        } else if (code >= 85 && code <= 86) {
-          weatherText = '雪'; weatherIcon = '❄️';
-        } else if (code >= 95) {
-          weatherText = '雷雨'; weatherIcon = '🌩️';
-        }
-
-        if (weatherInfoEl) {
-          weatherInfoEl.textContent = `${weatherIcon} ${weatherText} ${temp}°C`;
-        }
-      }
-    } catch (error) {
-      console.warn('Weather fetch fallback:', error);
-      if (weatherInfoEl) {
-        weatherInfoEl.textContent = '☀️ 晴れ 27°C';
-      }
-    }
-  }
-
-  fetchRealWeather();
-  setInterval(fetchRealWeather, 600000);
 
   // ----------------------------------------------------
   // Fullscreen & Screen Tap Reveal Toggle Logic
@@ -70,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hideControlsTimer) clearTimeout(hideControlsTimer);
     hideControlsTimer = setTimeout(() => {
       fullscreenBtn.classList.add('hidden');
-    }, 3500); // Auto fade-out after 3.5 seconds
+    }, 3500);
   }
 
   document.addEventListener('click', (e) => {
@@ -133,6 +89,52 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ----------------------------------------------------
+  // Real-time Weather Fetching (Open-Meteo API)
+  // ----------------------------------------------------
+  async function fetchRealWeather() {
+    try {
+      const weatherUrl = 'https://api.open-meteo.com/v1/forecast?latitude=35.6762&longitude=139.6503&current_weather=true';
+      const response = await fetch(weatherUrl);
+      if (!response.ok) throw new Error('Weather API request failed');
+
+      const data = await response.json();
+      if (data && data.current_weather) {
+        const temp = Math.round(data.current_weather.temperature);
+        const code = data.current_weather.weathercode;
+        
+        let weatherText = '晴れ';
+        let weatherIcon = '☀️';
+
+        if (code === 0) {
+          weatherText = '晴れ'; weatherIcon = '☀️';
+        } else if (code >= 1 && code <= 3) {
+          weatherText = '曇り'; weatherIcon = '🌤️';
+        } else if (code >= 45 && code <= 48) {
+          weatherText = '霧'; weatherIcon = '🌫️';
+        } else if (code >= 51 && code <= 82) {
+          weatherText = '雨'; weatherIcon = '🌧️';
+        } else if (code >= 85 && code <= 86) {
+          weatherText = '雪'; weatherIcon = '❄️';
+        } else if (code >= 95) {
+          weatherText = '雷雨'; weatherIcon = '🌩️';
+        }
+
+        if (weatherIconEl) weatherIconEl.textContent = weatherIcon;
+        if (weatherDescEl) weatherDescEl.textContent = weatherText;
+        if (weatherTempEl) weatherTempEl.textContent = `${temp}°C`;
+      }
+    } catch (error) {
+      console.warn('Weather fetch fallback:', error);
+      if (weatherIconEl) weatherIconEl.textContent = '☀️';
+      if (weatherDescEl) weatherDescEl.textContent = '晴れ';
+      if (weatherTempEl) weatherTempEl.textContent = '27°C';
+    }
+  }
+
+  fetchRealWeather();
+  setInterval(fetchRealWeather, 600000);
+
+  // ----------------------------------------------------
   // Real-time News Feeds (NHK News RSS)
   // ----------------------------------------------------
   const RSS_FEEDS = [
@@ -181,42 +183,9 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(fetchRealNews, 180000);
 
   // ----------------------------------------------------
-  // 59 to 00 Seconds Rewind Animation
+  // Update Signage Clock Mechanics
   // ----------------------------------------------------
-  const directionArrowEl = document.getElementById('direction-arrow');
-  const motionStatusEl = document.getElementById('motion-status');
-  let isRewinding = false;
-
-  function animateResetToZero(onComplete) {
-    isRewinding = true;
-    const steps = [59, 53, 46, 39, 32, 25, 18, 12, 7, 3, 0];
-    let stepIdx = 0;
-
-    if (floorNumberEl) floorNumberEl.classList.add('fast-rewind');
-    if (directionArrowEl) directionArrowEl.classList.add('descending');
-    if (motionStatusEl) motionStatusEl.textContent = '降下中';
-
-    const rewindInterval = setInterval(() => {
-      if (stepIdx < steps.length) {
-        if (floorNumberEl) {
-          floorNumberEl.textContent = String(steps[stepIdx]).padStart(2, '0');
-        }
-        stepIdx++;
-      } else {
-        clearInterval(rewindInterval);
-        if (floorNumberEl) {
-          floorNumberEl.classList.remove('fast-rewind');
-          floorNumberEl.textContent = '00';
-        }
-        if (onComplete) onComplete();
-      }
-    }, 75);
-  }
-
-  // ----------------------------------------------------
-  // Update Clock & Elevator Mechanics
-  // ----------------------------------------------------
-  function updateElevatorClock() {
+  function updateSignageClock() {
     const now = new Date();
 
     const h = String(now.getHours()).padStart(2, '0');
@@ -228,29 +197,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (minutesEl) minutesEl.textContent = m;
 
     if (currentSecond !== previousSecond) {
-      if (currentSecond === 0 && !isRewinding) {
-        animateResetToZero(() => {});
-      } else if (currentSecond === 1 && isRewinding) {
-        isRewinding = false;
-        if (directionArrowEl) directionArrowEl.classList.remove('descending');
-        if (motionStatusEl) motionStatusEl.textContent = '上昇中';
-        if (floorNumberEl) {
-          floorNumberEl.textContent = '01';
-          floorNumberEl.classList.remove('asending');
-          void floorNumberEl.offsetWidth;
-          floorNumberEl.classList.add('asending');
-        }
-      } else if (!isRewinding) {
-        if (directionArrowEl && directionArrowEl.classList.contains('descending')) {
-          directionArrowEl.classList.remove('descending');
-          if (motionStatusEl) motionStatusEl.textContent = '上昇中';
-        }
-        if (floorNumberEl) {
-          floorNumberEl.textContent = sStr;
-          floorNumberEl.classList.remove('asending');
-          void floorNumberEl.offsetWidth;
-          floorNumberEl.classList.add('asending');
-        }
+      if (secondsLargeEl) {
+        secondsLargeEl.textContent = sStr;
+        secondsLargeEl.classList.remove('tick-fade');
+        void secondsLargeEl.offsetWidth; // Trigger reflow
+        secondsLargeEl.classList.add('tick-fade');
       }
       previousSecond = currentSecond;
     }
@@ -264,6 +215,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (dayJapaneseEl) dayJapaneseEl.textContent = DAYS_JP[dayIdx];
   }
 
-  updateElevatorClock();
-  setInterval(updateElevatorClock, 50);
+  updateSignageClock();
+  setInterval(updateSignageClock, 50);
 });

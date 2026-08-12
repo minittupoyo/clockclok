@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Elevator Digital Signage Clock</title>
+  <title>Digital Signage Clock</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Google Fonts: Inter, Noto Sans JP, Geist Mono -->
@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Floating Fullscreen Toggle Button (Reveals on Screen Tap) -->
+  <!-- Floating Fullscreen Toggle Button -->
   <button id="fullscreen-btn" class="fullscreen-toggle hidden" aria-label="Toggle Fullscreen">
     <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
@@ -21,65 +21,57 @@
     </svg>
   </button>
 
-  <!-- Fullscreen Elevator LCD Display -->
-  <div class="elevator-lcd">
+  <!-- Fullscreen Digital Signage Container -->
+  <div class="signage-lcd">
+    
+    <!-- Top Weather & System Info Header -->
+    <header class="signage-header">
+      <div class="header-weather">
+        <span class="weather-icon" id="weather-icon">☀️</span>
+        <span class="weather-text" id="weather-desc">晴れ</span>
+        <span class="weather-temp" id="weather-temp">27°C</span>
+      </div>
+      <div class="header-status">
+        <span class="live-dot"></span>
+        <span class="live-label">LIVE</span>
+      </div>
+    </header>
 
-    <!-- Main Display Column -->
-    <main class="lcd-main">
+    <!-- Main Section: Dynamic Seconds Display (70% Allocation) -->
+    <section class="seconds-panel">
+      <div class="seconds-display-box">
+        <span class="seconds-num" id="seconds-large">00</span>
+        <span class="seconds-unit">SEC</span>
+      </div>
+    </section>
 
-      <!-- Japanese Elevator Top Bar -->
-      <header class="top-signage-bar">
-        <span class="car-label">1号機</span>
-      </header>
+    <div class="signage-divider"></div>
 
-      <!-- Primary Elevator Floor Section (Floor = Seconds) -->
-      <section class="elevator-floor-panel">
-        <div class="direction-column">
-          <div class="direction-arrow up active" id="direction-arrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="18 15 12 9 6 15"></polyline>
-            </svg>
-          </div>
-          <span class="motion-status" id="motion-status">上昇中</span>
+    <!-- Clock & Calendar Section (30% Allocation) -->
+    <section class="clock-panel">
+      <div class="time-readout">
+        <span id="hours">00</span>
+        <span class="time-colon">:</span>
+        <span id="minutes">00</span>
+      </div>
+
+      <div class="date-readout">
+        <span id="date-full">2026.08.12</span>
+        <span class="date-sep">|</span>
+        <span id="day-japanese">水曜日</span>
+      </div>
+    </section>
+
+    <!-- Bottom Real-time News Ticker -->
+    <footer class="signage-footer">
+      <div class="news-badge">ニュース</div>
+      <div class="news-wrapper">
+        <div class="news-text" id="news-ticker">
+          最新ニュースを取得中...
         </div>
+      </div>
+    </footer>
 
-        <div class="floor-readout">
-          <span class="floor-num" id="floor-number">00</span>
-        </div>
-      </section>
-
-      <div class="lcd-divider"></div>
-
-      <!-- Digital Clock & Date Section -->
-      <section class="clock-panel">
-        <div class="time-readout">
-          <span id="hours">00</span>
-          <span class="time-colon">:</span>
-          <span id="minutes">00</span>
-        </div>
-
-        <div class="date-readout">
-          <span id="date-full">2026.08.12</span>
-          <span class="date-sep">|</span>
-          <span id="day-japanese">水曜日</span>
-          <span class="date-sep">|</span>
-          <span id="weather-info">☀️ 晴れ 27°C</span>
-        </div>
-      </section>
-
-      <!-- Japanese Elevator News Ticker Section -->
-      <footer class="lcd-footer">
-        <div class="news-header">
-          <span class="news-badge">ニュース</span>
-        </div>
-        <div class="announcement-wrapper">
-          <div class="announcement-text" id="news-ticker">
-            本日の最新ニュースを取得中...
-          </div>
-        </div>
-      </footer>
-
-    </main>
   </div>
 
   <script src="script.js"></script>
