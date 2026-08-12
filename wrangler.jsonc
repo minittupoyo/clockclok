@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "clockclok",
+  "compatibility_date": "2026-08-12",
+  "assets": {
+    "directory": "./"
+  },
+  "routes": [
+    {
+      "pattern": "evclock.xn--j9jct3f.jp",
+      "custom_domain": true
+    }
+  ]
+}
