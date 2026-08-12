@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Elevator Digital Signage Clock</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Google Fonts: Inter, Noto Sans JP, Geist Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;600;700;800&family=Inter:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Floating Fullscreen Toggle Button (Reveals on Screen Tap) -->
+  <button id="fullscreen-btn" class="fullscreen-toggle hidden" aria-label="Toggle Fullscreen">
+    <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+    </svg>
+    <svg class="icon-compress" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>
+    </svg>
+  </button>
+
+  <!-- Fullscreen Elevator LCD Display -->
+  <div class="elevator-lcd">
+
+    <!-- Main Display Column -->
+    <main class="lcd-main">
+
+      <!-- Japanese Elevator Top Bar -->
+      <header class="top-signage-bar">
+        <span class="car-label">1号機</span>
+      </header>
+
+      <!-- Primary Elevator Floor Section (Floor = Seconds) -->
+      <section class="elevator-floor-panel">
+        <div class="direction-column">
+          <div class="direction-arrow up active" id="direction-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+          </div>
+          <span class="motion-status" id="motion-status">上昇中</span>
+        </div>
+
+        <div class="floor-readout">
+          <span class="floor-num" id="floor-number">00</span>
+        </div>
+      </section>
+
+      <div class="lcd-divider"></div>
+
+      <!-- Digital Clock & Date Section -->
+      <section class="clock-panel">
+        <div class="time-readout">
+          <span id="hours">00</span>
+          <span class="time-colon">:</span>
+          <span id="minutes">00</span>
+        </div>
+
+        <div class="date-readout">
+          <span id="date-full">2026.08.12</span>
+          <span class="date-sep">|</span>
+          <span id="day-japanese">水曜日</span>
+          <span class="date-sep">|</span>
+          <span id="weather-info">☀️ 晴れ 27°C</span>
+        </div>
+      </section>
+
+      <!-- Japanese Elevator News Ticker Section -->
+      <footer class="lcd-footer">
+        <div class="news-header">
+          <span class="news-badge">ニュース</span>
+        </div>
+        <div class="announcement-wrapper">
+          <div class="announcement-text" id="news-ticker">
+            本日の最新ニュースを取得中...
+          </div>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
