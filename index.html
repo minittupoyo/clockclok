@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Google Fonts: Inter, Noto Sans JP, Geist Mono -->
-  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;600;700;800&family=Inter:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -24,45 +24,91 @@
   <!-- Fullscreen Digital Signage Container -->
   <div class="signage-lcd">
     
-    <!-- Top Weather & System Info Header -->
-    <header class="signage-header">
-      <div class="header-weather">
-        <span class="weather-icon" id="weather-icon">☀️</span>
-        <span class="weather-text" id="weather-desc">晴れ</span>
-        <span class="weather-temp" id="weather-temp">27°C</span>
-      </div>
-      <div class="header-status">
-        <span class="live-dot"></span>
-        <span class="live-label">LIVE</span>
-      </div>
-    </header>
+    <!-- Weather Forecast Section (40% Ratio - Apple Weather Style App Widget) -->
+    <section class="weather-section-four">
+      
+      <!-- Weather Hero Main Row -->
+      <div class="weather-app-hero">
+        <div class="weather-hero-main">
+          <span class="weather-app-icon" id="weather-icon">☀️</span>
+          <div class="weather-app-temp-wrap">
+            <span class="weather-app-temp" id="weather-temp">27°</span>
+            <span class="weather-app-desc" id="weather-desc">晴れ</span>
+          </div>
+        </div>
 
-    <!-- Main Section: Dynamic Seconds Display (70% Allocation) -->
-    <section class="seconds-panel">
-      <div class="seconds-display-box">
-        <span class="seconds-num" id="seconds-large">00</span>
-        <span class="seconds-unit">SEC</span>
+        <!-- Weather Sub Metrics (High/Low & Rain/Humidity) -->
+        <div class="weather-app-metrics">
+          <div class="metric-row hi-low-row">
+            <span class="metric-high" id="temp-high">最高 31°</span>
+            <span class="metric-dot">•</span>
+            <span class="metric-low" id="temp-low">最低 22°</span>
+          </div>
+          <div class="metric-row sub-row">
+            <span class="metric-sub-item">降水確率 <strong id="pop-val">0%</strong></span>
+            <span class="metric-dot">•</span>
+            <span class="metric-sub-item">湿度 <strong id="humidity-val">55%</strong></span>
+          </div>
+        </div>
       </div>
+
+      <!-- Hourly Forecast Timeline Widget -->
+      <div class="weather-timeline-widget">
+        <div class="timeline-header">時間帯別の予報</div>
+        <div class="hourly-forecast-row" id="hourly-forecast">
+          <div class="hourly-chip">
+            <span class="chip-time">今</span>
+            <span class="chip-icon">☀️</span>
+            <span class="chip-temp">27°</span>
+          </div>
+          <div class="hourly-chip">
+            <span class="chip-time">18時</span>
+            <span class="chip-icon">☀️</span>
+            <span class="chip-temp">26°</span>
+          </div>
+          <div class="hourly-chip">
+            <span class="chip-time">21時</span>
+            <span class="chip-icon">🌤️</span>
+            <span class="chip-temp">24°</span>
+          </div>
+          <div class="hourly-chip">
+            <span class="chip-time">00時</span>
+            <span class="chip-icon">🌙</span>
+            <span class="chip-temp">22°</span>
+          </div>
+          <div class="hourly-chip">
+            <span class="chip-time">03時</span>
+            <span class="chip-icon">🌙</span>
+            <span class="chip-temp">21°</span>
+          </div>
+        </div>
+      </div>
+
     </section>
 
     <div class="signage-divider"></div>
 
-    <!-- Clock & Calendar Section (30% Allocation) -->
-    <section class="clock-panel">
-      <div class="time-readout">
-        <span id="hours">00</span>
-        <span class="time-colon">:</span>
-        <span id="minutes">00</span>
+    <!-- Digital Clock Section (60% Ratio) -->
+    <main class="clock-section-six">
+      <div class="time-container">
+        <div class="time-main">
+          <span id="hours">00</span>
+          <span class="time-colon">:</span>
+          <span id="minutes">00</span>
+        </div>
+        <div class="seconds-box">
+          <span id="seconds">00</span>
+        </div>
       </div>
 
-      <div class="date-readout">
+      <div class="date-container">
         <span id="date-full">2026.08.12</span>
         <span class="date-sep">|</span>
         <span id="day-japanese">水曜日</span>
       </div>
-    </section>
+    </main>
 
-    <!-- Bottom Real-time News Ticker -->
+    <!-- Bottom Real-time News Ticker (Unified Clean Marquee) -->
     <footer class="signage-footer">
       <div class="news-badge">ニュース</div>
       <div class="news-wrapper">

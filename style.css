@@ -32,145 +32,222 @@ html, body {
   overflow: hidden;
 }
 
-/* Header: Weather & Live Status Bar */
-.signage-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding-bottom: 1.5vh;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  flex-shrink: 0;
-}
-
-.header-weather {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: clamp(0.75rem, 1.5vw, 1rem);
-  font-weight: 600;
-  color: #dddddd;
-}
-
-.weather-icon {
-  font-size: 1.1em;
-}
-
-.weather-temp {
-  color: #ffffff;
-  font-family: 'Geist Mono', monospace;
-  font-weight: 700;
-}
-
-.header-status {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 3px 10px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.live-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: #ffffff;
-  box-shadow: 0 0 8px #ffffff;
-  animation: pulse-dot 2s infinite ease-in-out;
-}
-
-.live-label {
-  font-family: 'Geist Mono', monospace;
-  font-size: clamp(0.55rem, 1.1vw, 0.75rem);
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: #cccccc;
-}
-
-/* Main Section: Dynamic Seconds Display (70% Allocation) */
-.seconds-panel {
-  flex: 7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 2vh 0 1vh;
-  overflow: hidden;
-}
-
-.seconds-display-box {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  font-family: 'Geist Mono', monospace;
-  font-weight: 700;
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum";
-}
-
-.seconds-num {
-  font-size: clamp(8.5rem, 30vw, 20rem);
-  letter-spacing: -0.03em;
-  color: #ffffff;
-  text-shadow: 0 0 45px rgba(255, 255, 255, 0.45);
-  line-height: 0.9;
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum";
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 2ch;
-  text-align: center;
-}
-
-.seconds-num.tick-fade {
-  animation: subtle-fade 0.15s ease-out;
-}
-
-.seconds-unit {
-  font-size: clamp(1.8rem, 6vw, 4.2rem);
-  color: #777777;
-  margin-left: 8px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-}
-
 /* Divider */
 .signage-divider {
   width: 100%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-  margin: 0.5vh 0 1vh;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  margin: 0.5vh 0;
   flex-shrink: 0;
 }
 
-/* Clock & Calendar Section (30% Allocation) */
-.clock-panel {
-  flex: 3;
+/* ---------------------------------------------------- */
+/* 1. Weather Forecast Section (40% - Unified Style)    */
+/* ---------------------------------------------------- */
+.weather-section-four {
+  flex: 4;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+  justify-content: space-around;
   width: 100%;
   padding: 0.5vh 0;
   overflow: hidden;
 }
 
-.time-readout {
-  font-family: 'Geist Mono', monospace;
-  font-size: clamp(3rem, 10vw, 6.2rem);
-  font-weight: 700;
+.weather-app-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 0.5vw;
+}
+
+.weather-hero-main {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.weather-app-icon {
+  font-size: clamp(3rem, 8.5vw, 5.2rem);
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+}
+
+.weather-app-temp-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   line-height: 0.95;
-  letter-spacing: -0.03em;
+}
+
+.weather-app-temp {
+  font-family: 'Geist Mono', monospace;
+  font-size: clamp(2.6rem, 7vw, 4.5rem);
+  font-weight: 700;
   color: #ffffff;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.25);
+  letter-spacing: -0.03em;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.25);
+}
+
+.weather-app-desc {
+  font-size: clamp(0.95rem, 2.2vw, 1.35rem);
+  font-weight: 600;
+  color: #cccccc;
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+}
+
+.weather-app-metrics {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  font-family: 'Inter', 'Noto Sans JP', sans-serif;
+}
+
+.metric-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hi-low-row {
+  font-family: 'Geist Mono', monospace;
+  font-size: clamp(0.9rem, 2vw, 1.3rem);
+  font-weight: 700;
+}
+
+.metric-high {
+  color: #ff9999;
+}
+
+.metric-low {
+  color: #99ccff;
+}
+
+.metric-dot {
+  color: #444444;
+  font-size: 0.8em;
+}
+
+.sub-row {
+  font-size: clamp(0.75rem, 1.4vw, 0.95rem);
+  color: #aaaaaa;
+  font-weight: 500;
+}
+
+.sub-row strong {
+  color: #ffffff;
+  font-family: 'Geist Mono', monospace;
+  font-weight: 600;
+}
+
+/* Hourly Forecast Timeline Widget */
+.weather-timeline-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.timeline-header {
+  font-size: clamp(0.65rem, 1.1vw, 0.78rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #777777;
+}
+
+.hourly-forecast-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hourly-forecast-row::-webkit-scrollbar {
+  display: none;
+}
+
+.hourly-chip {
+  flex: 1;
+  min-width: 52px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px 8px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.hourly-chip:first-child {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.chip-time {
+  font-family: 'Geist Mono', monospace;
+  font-size: clamp(0.75rem, 1.4vw, 1rem);
+  color: #888888;
+}
+
+.hourly-chip:first-child .chip-time {
+  color: #ffffff;
+}
+
+.chip-icon {
+  font-size: clamp(1rem, 1.8vw, 1.3rem);
+}
+
+.chip-temp {
+  font-family: 'Geist Mono', monospace;
+  font-size: clamp(0.85rem, 1.6vw, 1.15rem);
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* ---------------------------------------------------- */
+/* 2. Digital Clock Section (60% - Unified Style)       */
+/* ---------------------------------------------------- */
+.clock-section-six {
+  flex: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5vh;
+  width: 100%;
+  padding: 1.5vh 0;
+  overflow: hidden;
+}
+
+.time-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2vh;
+}
+
+.time-main {
+  font-family: 'Geist Mono', monospace;
+  font-size: clamp(5.5rem, 20vw, 13rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  text-shadow: 0 0 35px rgba(255, 255, 255, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
 }
 
 .time-colon {
@@ -178,29 +255,51 @@ html, body {
   animation: colon-blink 1s infinite steps(1);
 }
 
-.date-readout {
+.seconds-box {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 4px 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#seconds {
+  font-family: 'Geist Mono', monospace;
+  font-size: clamp(1.8rem, 6vw, 3.8rem);
+  font-weight: 600;
+  color: #aaaaaa;
+  letter-spacing: 0.05em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.date-container {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
+  gap: 14px;
   font-family: 'Inter', 'Noto Sans JP', sans-serif;
-  font-size: clamp(0.75rem, 1.8vw, 1.15rem);
+  font-size: clamp(0.85rem, 2.2vw, 1.4rem);
   font-weight: 600;
-  letter-spacing: 0.1em;
-  color: #aaaaaa;
+  letter-spacing: 0.12em;
+  color: #cccccc;
 }
 
 .date-sep {
   color: #444444;
 }
 
-/* Bottom Real-time News Ticker */
+/* ---------------------------------------------------- */
+/* 3. Bottom Real-time News Ticker (Unified Style)      */
+/* ---------------------------------------------------- */
 .signage-footer {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding-top: 1.2vh;
+  padding-top: 1.5vh;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
   width: 100%;
   overflow: hidden;
@@ -209,7 +308,7 @@ html, body {
 
 .news-badge {
   font-family: 'Inter', 'Noto Sans JP', sans-serif;
-  font-size: clamp(0.6rem, 1.1vw, 0.75rem);
+  font-size: clamp(0.65rem, 1.2vw, 0.8rem);
   font-weight: 700;
   letter-spacing: 0.1em;
   color: #000000;
@@ -291,17 +390,20 @@ body.is-fullscreen .fullscreen-toggle .icon-compress {
   display: block;
 }
 
+/* ---------------------------------------------------- */
+/* LANDSCAPE ORIENTATION OPTIMIZATION (Horizontal UI) */
+/* ---------------------------------------------------- */
+@media (min-aspect-ratio: 1.2/1) {
+  .signage-lcd {
+    padding: 3vh 4.5vw;
+  }
+
+  .signage-footer {
+    padding-top: 1.2vh;
+  }
+}
+
 /* Animations */
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.3; transform: scale(0.8); }
-}
-
-@keyframes subtle-fade {
-  0% { opacity: 0.75; transform: scale(0.99); }
-  100% { opacity: 1; transform: scale(1); }
-}
-
 @keyframes colon-blink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }
